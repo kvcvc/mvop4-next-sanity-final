@@ -2,15 +2,15 @@
  * This config is used to set up Sanity Studio that's mounted on the `/pages/studio/[[...index]].tsx` route
  */
 
-import { visionTool } from '@sanity/vision'
-import { defineConfig } from 'sanity'
-import { deskTool } from 'sanity/desk'
+import { visionTool } from "@sanity/vision";
+import { defineConfig } from "sanity";
+import { deskTool } from "sanity/desk";
 import {
   defineUrlResolver,
   Iframe,
   IframeOptions,
-} from 'sanity-plugin-iframe-pane'
-import { previewUrl } from 'sanity-plugin-iframe-pane/preview-url'
+} from "sanity-plugin-iframe-pane";
+import { previewUrl } from "sanity-plugin-iframe-pane/preview-url";
 
 // see https://www.sanity.io/docs/api-versioning for how versioning works
 import {
@@ -18,22 +18,22 @@ import {
   dataset,
   previewSecretId,
   projectId,
-} from '~/lib/sanity.api'
-import { schema } from '~/schemas'
+} from "~/lib/sanity.api";
+import { schema } from "~/schemas";
 
 const iframeOptions = {
   url: defineUrlResolver({
-    base: '/api/draft',
-    requiresSlug: ['post'],
+    base: "/api/draft",
+    requiresSlug: ["post"],
   }),
   urlSecretId: previewSecretId,
   reload: { button: true },
-} satisfies IframeOptions
+} satisfies IframeOptions;
 
 export default defineConfig({
-  basePath: '/studio',
-  name: 'project-name',
-  title: 'Project Name',
+  basePath: "/studio",
+  name: "project-name",
+  title: "Project Name",
   projectId,
   dataset,
   //edit schemas in './src/schemas'
@@ -50,18 +50,18 @@ export default defineConfig({
           // Default form view
           S.view.form(),
           // Preview
-          S.view.component(Iframe).options(iframeOptions).title('Preview'),
-        ])
+          S.view.component(Iframe).options(iframeOptions).title("Preview"),
+        ]);
       },
     }),
     // Add the "Open preview" action
     previewUrl({
-      base: '/api/draft',
-      requiresSlug: ['post'],
+      base: "/api/draft",
+      requiresSlug: ["post"],
       urlSecretId: previewSecretId,
     }),
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
   ],
-})
+});
